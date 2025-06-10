@@ -20,7 +20,7 @@ import "fmt"
 
 //go:generate mockgen -source=person.go -destination=mocks/mock.go
 type Translator interface {
-	Translate(lang string, text string) string
+	rudimentaryTranslator(lang string, name string) string
 }
 
 // Та, что использовалась по умолчанию- новая версия mockgen
@@ -31,25 +31,32 @@ type Translator interface {
 // mockgen -source person.go > mocks/mock.go
 // mockgen -version  вернет версию, сейчас (10.06.2025)- v0.5.2
 
-type TranslationService struct{}
+// // Сервис перевода.
+// // В данный момент полностью полагается на метод rudimentaryTranslator
+// type translationService struct{}
 
-//метод типа TranslationService, удовлетворяющий интерфейсу Translator
-func (t TranslationService) Translate(lang string, text string) string {
-	return text // Reach out to an external API here...
-}
-
-type person struct {
-	name       string
-	Translator Translator
-}
-
-func (p person) SayGreeting(language string) string {
-	switch language {
+//функция "простой переводчик" удовлетворяющая интерфейсу Translator
+func (p person) rudimentaryTranslator() string {
+	switch p.language {
 	case "eng":
-		return fmt.Sprintf("Hello, my name is %s!", p.name)
+		return fmt.Sprintf("Glad to see you %s!", p.name)
 	case "esp":
-		return p.Translator.Translate(language, fmt.Sprintf("Hola, me llamo %s", p.name))
+		return fmt.Sprintf("Me alegro de verte, %s!", p.name)
 	default:
-		return fmt.Sprintf("I don't speak %s", language)
+		return fmt.Sprintf("Sorry, I don't speak %s.", p.language)
 	}
+	//or reach out to an external API here...
 }
+
+// //метод "приветствие" типа person
+// func (p person) welcome() string {
+// 	return rudimentaryTranslator(p.language, p.name)
+// 	// switch language {
+// 	// case "eng":
+// 	// 	return fmt.Sprintf("Hello, my name is %s!", p.name)
+// 	// case "esp":
+// 	// 	return p.Translator.Translate(language, fmt.Sprintf("Hola, me llamo %s", p.name))
+// 	// default:
+// 	// 	return fmt.Sprintf("I don't speak %s", language)
+// 	// }
+// }
