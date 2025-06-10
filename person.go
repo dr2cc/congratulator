@@ -8,6 +8,7 @@ type Translator interface {
 
 type TranslationService struct{}
 
+//метод типа TranslationService, удовлетворяющий интерфейсу Translator
 func (t TranslationService) Translate(lang string, text string) string {
 	return text // Reach out to an external API here...
 }
