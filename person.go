@@ -19,8 +19,8 @@ import "fmt"
 // }
 
 //go:generate mockgen -source=person.go -destination=mocks/mock.go
-type Translator interface {
-	rudimentaryTranslator(lang string, name string) string
+type translator interface {
+	rudimentaryTranslator() string
 }
 
 // Та, что использовалась по умолчанию- новая версия mockgen
@@ -31,11 +31,7 @@ type Translator interface {
 // mockgen -source person.go > mocks/mock.go
 // mockgen -version  вернет версию, сейчас (10.06.2025)- v0.5.2
 
-// // Сервис перевода.
-// // В данный момент полностью полагается на метод rudimentaryTranslator
-// type translationService struct{}
-
-//функция "простой переводчик" удовлетворяющая интерфейсу Translator
+//метод реализующий rudimentaryTranslator из интерфейса Translator
 func (p person) rudimentaryTranslator() string {
 	switch p.language {
 	case "eng":
@@ -46,17 +42,18 @@ func (p person) rudimentaryTranslator() string {
 		return fmt.Sprintf("Sorry, I don't speak %s.", p.language)
 	}
 	//or reach out to an external API here...
+
+	// // Можно выводить сообщение ниже если язык не поддерживается?!
+	// fmt.Printf("Привет, %s! Твой язык %s .\n", name, language)
+	// //
+	// // Если переменная имеет тип int то используем параметр %d
+	// // var name string
+	// // var age int
+	// // ...
+	// // fmt.Printf("Привет, %s! Тебе %d лет.\n", name, age)
+	// //
 }
 
-// //метод "приветствие" типа person
-// func (p person) welcome() string {
-// 	return rudimentaryTranslator(p.language, p.name)
-// 	// switch language {
-// 	// case "eng":
-// 	// 	return fmt.Sprintf("Hello, my name is %s!", p.name)
-// 	// case "esp":
-// 	// 	return p.Translator.Translate(language, fmt.Sprintf("Hola, me llamo %s", p.name))
-// 	// default:
-// 	// 	return fmt.Sprintf("I don't speak %s", language)
-// 	// }
-// }
+func welcome(out translator) {
+	fmt.Println(out.rudimentaryTranslator())
+}
