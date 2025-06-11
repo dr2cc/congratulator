@@ -5,10 +5,10 @@ import "fmt"
 // Пользовательский тип данных person .
 // Эта структура удовлетворяет (satisfies) интерфейсу
 // type translator interface {
-//	rudimentaryTranslator() string
+//	RudimentaryTranslator() string
 // }
 // т.к. имеет метод
-// func (p person) rudimentaryTranslator() string{}
+// func (p person) RudimentaryTranslator() string{}
 // не принимающий параметров и возвращающий строку.
 type person struct {
 	name     string

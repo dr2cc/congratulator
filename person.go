@@ -20,7 +20,7 @@ import "fmt"
 
 //go:generate mockgen -source=person.go -destination=mocks/mock.go
 type translator interface {
-	rudimentaryTranslator() string
+	RudimentaryTranslator() string
 }
 
 // Та, что использовалась по умолчанию- новая версия mockgen
@@ -32,7 +32,7 @@ type translator interface {
 // mockgen -version  вернет версию, сейчас (10.06.2025)- v0.5.2
 
 //метод реализующий rudimentaryTranslator из интерфейса Translator
-func (p person) rudimentaryTranslator() string {
+func (p person) RudimentaryTranslator() string {
 	switch p.language {
 	case "eng":
 		return fmt.Sprintf("Glad to see you %s!", p.name)
@@ -55,5 +55,5 @@ func (p person) rudimentaryTranslator() string {
 }
 
 func welcome(out translator) {
-	fmt.Println(out.rudimentaryTranslator())
+	fmt.Println(out.RudimentaryTranslator())
 }

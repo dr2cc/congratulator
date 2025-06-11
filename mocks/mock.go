@@ -33,16 +33,16 @@ func (m *Mocktranslator) EXPECT() *MocktranslatorMockRecorder {
 	return m.recorder
 }
 
-// rudimentaryTranslator mocks base method.
-func (m *Mocktranslator) rudimentaryTranslator() string {
+// RudimentaryTranslator mocks base method.
+func (m *Mocktranslator) RudimentaryTranslator() string {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "rudimentaryTranslator")
+	ret := m.ctrl.Call(m, "RudimentaryTranslator")
 	ret0, _ := ret[0].(string)
 	return ret0
 }
 
-// rudimentaryTranslator indicates an expected call of rudimentaryTranslator.
-func (mr *MocktranslatorMockRecorder) rudimentaryTranslator() *gomock.Call {
+// RudimentaryTranslator indicates an expected call of RudimentaryTranslator.
+func (mr *MocktranslatorMockRecorder) RudimentaryTranslator() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "rudimentaryTranslator", reflect.TypeOf((*Mocktranslator)(nil).rudimentaryTranslator))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RudimentaryTranslator", reflect.TypeOf((*Mocktranslator)(nil).RudimentaryTranslator))
 }

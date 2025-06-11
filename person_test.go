@@ -14,8 +14,9 @@ func Test_person_rudimentaryTranslator(t *testing.T) {
 	mockTranslator := mock_main.NewMocktranslator(ctrl)
 
 	mockTranslator.EXPECT().
-		rudimentaryTranslator().
+		RudimentaryTranslator().
 		Return("Glad to see you John!")
+
 	// tests := []struct {
 	// 	name string
 	// 	p    person
