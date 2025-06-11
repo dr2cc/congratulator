@@ -34,15 +34,17 @@ import (
 
 func TestGreeting(t *testing.T) {
 	ctrl := gomock.NewController(t)
-	// Этот "примерщик" даже работу контроллера не завершил, что обязательно требуют
-	defer ctrl.Finish()
+	// При использовании Go 1.14+ и GoMock 1.5.0+ вам больше не нужно явно вызывать defer ctrl.Finish()
+	// Очистка происходит автоматически через фреймворк тестирования Go
+	//defer ctrl.Finish()
 
 	mockTranslator := mock_main.NewMockTranslator(ctrl)
 
 	want := "Hola, me llamo Harry"
 	mockTranslator.EXPECT().
 		Translate("esp", gomock.Any()).
-		Return(want)
+		Return(want).
+		Times(3)
 		//.AnyTimes()
 		// Это вроде как заглушка
 		// "которая будет отвечать на вызов любое количество раз и не проваливать тест"
@@ -52,10 +54,22 @@ func TestGreeting(t *testing.T) {
 		Translator: mockTranslator,
 	}
 
+	// // Если несколько методов по порядку
+	// gomock.InOrder(
+	// 	mock.EXPECT().
+	// 	Method(gomock.Any(), "abc").
+	// 	Return(123, nil).
+	// 	Times(1),
+	// 	mock.EXPECT().
+	// 	AnotherMethod(gomock.Any(), gomock.Len(3)).
+	// 	Return(123, "123"),
+	// )
+
 	got := p.SayGreeting("esp")
-	// // если активировать заглушку выше, то можно добавить строки ниже
-	// p.SayGreeting("esp")
-	// p.SayGreeting("est")
+	// Какой индекс будет в Times(3) , столько раз можем вызвать метод Translate (из person.go)
+	p.SayGreeting("esp")
+	p.SayGreeting("esp")
+	// // если активировать заглушку выше, то можно добавить сколько угодно строк ниже
 	// p.SayGreeting("esp")
 
 	if got != want {
