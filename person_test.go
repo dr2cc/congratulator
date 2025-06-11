@@ -34,6 +34,9 @@ import (
 
 func TestGreeting(t *testing.T) {
 	ctrl := gomock.NewController(t)
+	// Этот "примерщик" даже работу контроллера не завершил, что обязательно требуют
+	defer ctrl.Finish()
+
 	mockTranslator := mock_main.NewMockTranslator(ctrl)
 
 	want := "Hola, me llamo Harry"
