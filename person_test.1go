@@ -1,31 +1,44 @@
-// Без мока
-
+// без мока
 package main
 
-import (
-	"testing"
-)
+import "testing"
 
-type fakeTranslationService struct{}
-
-// метод типа fakeTranslationService, удовлетворяющий интерфейсу Translator
-func (t fakeTranslationService) Translate(lang string, text string) string {
-	if lang == "esp" {
-		return "Hola, me llamo Harry"
+func Test_person_rudimentaryTranslator(t *testing.T) {
+	tests := []struct {
+		name string
+		p    person
+		want string
+	}{
+		{
+			name: "eng",
+			p: person{
+				name:     "John",
+				language: "eng",
+			},
+			want: "Glad to see you John!",
+		},
+		{
+			name: "esp",
+			p: person{
+				name:     "John",
+				language: "esp",
+			},
+			want: "Me alegro de verte, John!",
+		},
+		{
+			name: "other",
+			p: person{
+				name:     "John",
+				language: "jp",
+			},
+			want: "Sorry, I don't speak jp.",
+		},
 	}
-	return "Hello, my name is Harry"
-}
-
-func TestGreeting(t *testing.T) {
-	p := person{
-		name:       "Sam",
-		Translator: fakeTranslationService{},
-	}
-
-	got := p.SayGreeting("esp")
-	want := "Hola, me llamo Harry"
-
-	if got != want {
-		t.Errorf("Got '%s' but wanted '%s'", got, want)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.p.rudimentaryTranslator(); got != tt.want {
+				t.Errorf("Got %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
