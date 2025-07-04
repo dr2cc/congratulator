@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	mock_main "congrat/mocks"
+	mock_main "github.com/dr2cc/congratulator.git/mocks"
 
 	"go.uber.org/mock/gomock"
 )
