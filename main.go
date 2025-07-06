@@ -2,19 +2,34 @@ package main
 
 import "fmt"
 
-var lang string
+// Пользовательский тип данных person .
+// Эта структура удовлетворяет (satisfies) интерфейсу
+// type translator interface {
+//	RudimentaryTranslator() string
+// }
+// т.к. имеет метод
+// func (p person) RudimentaryTranslator() string{}
+// не принимающий параметров и возвращающий строку.
+type person struct {
+	name     string
+	language string
+}
 
 func main() {
 
-	t := TranslationService{}
+	user := person{}
 
-	user := person{
-		name:       "Harry",
-		Translator: &t,
-	}
+	fmt.Print("What's your name: ")
+	fmt.Scan(&user.name)
 
-	lang = "esp"
-	fmt.Println("User language is", lang)
-	output := user.SayGreeting(lang)
-	fmt.Println(output)
+	fmt.Print("What language do you use? ")
+	fmt.Scan(&user.language)
+
+	// Встраивание (embedding) интерфейса (!?)
+	// func welcome(out translator){} принимает translator интерфейс в качестве аргумента,
+	// а это означает, что ее можно использовать с любым типом, который удовлетворяет translator интерфейсу.
+	// В данном случае мы передаем user переменную (тип person структура),
+	// которая удовлетворяет translator интерфейсу, поскольку у нее есть rudimentaryTranslator() метод.
+	welcome(user)
+
 }
