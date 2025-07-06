@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func Test_person_RudimentaryTranslator(t *testing.T) {
+func Test_main_RudimentaryTranslator(t *testing.T) {
 	tests := []struct {
 		name string
 		p    person
@@ -28,9 +28,9 @@ func Test_person_RudimentaryTranslator(t *testing.T) {
 			name: "other",
 			p: person{
 				name:     "John",
-				language: "jp",
+				language: "fin",
 			},
-			want: "Sorry, I don't speak jp.",
+			want: "Sorry, I don't speak fin.",
 		},
 	}
 	for _, tt := range tests {
