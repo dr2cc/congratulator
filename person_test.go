@@ -2,8 +2,9 @@
 package main
 
 import (
-	mock_main "congrat/mocks"
 	"testing"
+
+	mock_main "github.com/dr2cc/congratulator/mocks"
 
 	"go.uber.org/mock/gomock"
 )
